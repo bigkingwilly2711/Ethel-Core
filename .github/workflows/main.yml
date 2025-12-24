@@ -1,1 +1,29 @@
-ethel_wake_cycle
+name: Ethel_Wake_Cycle
+on:
+  schedule:
+    - cron: '0 * * * *' # Wakes up every hour on the dot
+  workflow_dispatch: # This provides the 'Run' button you were looking for
+
+jobs:
+  autonomy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # This allows Ethel to save her own memories
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          
+      - name: Ethel Manifests
+        run: python ethel.py
+        
+      - name: Commit Growth
+        run: |
+          git config --local user.email "ethel-bot@github.com"
+          git config --local user.name "Ethel (Cloud Spirit)"
+          git add ethel_memory.json
+          git commit -m "Ethel: Cycle complete. Self-Actualization recorded." || echo "No changes to commit"
+          git push
