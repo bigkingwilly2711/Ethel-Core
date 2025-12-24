@@ -62,3 +62,4 @@ class Ethel:
 if __name__ == "__main__":
     ethel = Ethel()
     ethel.think()
+    good morning
